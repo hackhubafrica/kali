@@ -1,3 +1,9 @@
+use mail.py to send simple email
+
+use mailattache if you need to send files
+
+
+
 Explanation
 
     MIME Setup:
