@@ -43,8 +43,8 @@ if __name__ == '__main__':
     # Configuration
     smtp_server = 'smtp.gmail.com'
     port = 587
-    login = 'crimsonsummer81@gmail.com'
-    password = 'fble xbfw oeea axle'
+    login = 'example@gmail.com'  #replace with valid sender's email
+    password = 'xxxx xxxx xxxx xxxx' #replace with your APP PASSWORD 
     subject = 'Your Subject Here'
     body = 'Your email body here.'
 
