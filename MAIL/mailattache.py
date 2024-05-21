@@ -64,8 +64,8 @@ if __name__ == '__main__':
     # Configuration
     smtp_server = 'smtp.gmail.com'
     port = 587
-    login = 'crimsonsummer81@gmail.com'
-    app_password = 'fble xbfw oeea axle'  # Use the app-specific password here
+    login = 'example@gmail.com'           #use valid sender's email 
+    app_password = 'XXXX XXXX XXXX XXXX'  # Use the app-specific password here
     subject = 'AI and Machines'
     body = 'This is so AWESOME!!!!'
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     recipients = read_recipients_from_csv(csv_file)
 
     # File paths to attach
-    attachment_paths = ['./Screenshot_12.zip'] #, 'path/to/your/file.apk'
+    attachment_paths = ['./Screenshot_12.zip'] #, path/to/your/file.apk or path/to/your/file.zip
 
     # Send emails
     send_email(smtp_server, port, login, app_password, subject, body, recipients, attachment_paths)
