@@ -1,3 +1,4 @@
+ # SYSTEM INFORMATION
 To determine which version of Debian you are using, you can check the contents of certain system files or use specific commands. Here are a few methods to find out the Debian version:
 
 Method 1: Using lsb_release Command
@@ -66,5 +67,71 @@ Kernel: Linux 4.19.0-14-amd64
 Architecture: x86-64
 
   
+
+
+# GRUB-CONFIGURATION
+Step 1 :Create a bootable USB
+
+First of all, you need to download the latest ISO file from our website.
+Then you can burn it using Balena Etcher or ROSA ImageWriter. They both work on GNU/Linux, Mac OS and Windows. We strongly recommend to use Etcher, but you can also use the DD command line tool if you prefer it.
+Step 2 - Disk and partition identification
+Once you entered the live mode, open terminal and type
+
+    sudo fdisk -l
+
+The output should be similar to this. /dev/sda is usually the first SSD or HDD. If you have an NVMe M.2, the disk will be named /dev/nvme0n1.
+
+/dev/sda1 usually is the EFI partition, used for booting the OS in UEFI systems.
+/dev/sda2 is Linux partition.
+
+Step 3 - Create the mount folder
+A mount folder is needed to perform this operation. So, in the same terminal window, type:
+        
+    mkdir /mnt/boot
+Step 4 - Mount Partitions
+Now it's time to mount the partitions. In the same terminal window, type
+    
+    
+    sudo mount /dev/sda2 /mnt
+
+For ParrotOS default filesystem is btrfs and it has subvolumes enabled. In the same terminal window, type;
+    
+    sudo mount -o subvol=@ /dev/sda2 /mnt
+
+Mount the dev, proc, sys folders and the EFI partion in order to get access to the system.
+
+In the same terminal window, type
+
+    sudo mount --bind /dev /mnt/dev
+
+    sudo mount --bind /proc /mnt/proc
+
+    sudo mount --bind /sys /mnt/sys
+
+    sudo mount /dev/sda1 /mnt/boot/efi
+
+Step 5 - Chrooting and installing GRUB
+Time to enter the system. In the same terminal window, type
+
+    sudo chroot /mnt
+
+Once in chroot environment, type
+
+    grub-install /dev/sda
+After the installation is finished, type exit so as to exit the chroot environment.
+
+Step 6 - Unmounting partitions and rebooting system
+After exiting the chroot environment, unmount all of the partitions and folders used. In the same terminal window type:
+
+     sudo umount /mnt/dev
+
+    sudo umount /mnt/proc
+
+    sudo umount /mnt/sys
+
+    sudo umount /mnt/boot/efi
+
+    sudo umount /mnt
+
 
 
